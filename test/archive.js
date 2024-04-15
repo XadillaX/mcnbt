@@ -3,10 +3,17 @@
 const fs = require('fs');
 const util = require('util');
 
-const Long = require('long');
 const should = require('should');
 
 const NBT = require('../nbt');
+
+function tryBigInt(value) {
+  try {
+    return BigInt(value);
+  } catch (e) {
+    return BigInt(0);
+  }
+}
 
 describe('Real archive test', function() {
   const archive = new NBT();
@@ -58,7 +65,7 @@ describe('Real archive test', function() {
         } else if (typeof result === 'string') {
           if (result === '') {
             node.getType().should.match(/^TAG_String/);
-          } else if (Long.fromString(result).toString() === result) {
+          } else if (tryBigInt(result).toString() === result) {
             node.getType().should.match(/^TAG_(Long|String)$/);
           } else {
             node.getType().should.match(/^TAG_String$/);

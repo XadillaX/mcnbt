@@ -3,10 +3,17 @@
 const fs = require('fs');
 const util = require('util');
 
-const Long = require('long');
 const should = require('should');
 
 const NBT = require('../nbt');
+
+function tryBigInt(value) {
+  try {
+    return BigInt(value);
+  } catch (e) {
+    return BigInt(0);
+  }
+}
 
 describe('Real bugtest archive test', function() {
   const archive = new NBT();
@@ -57,7 +64,7 @@ describe('Real bugtest archive test', function() {
         } else if (typeof result === 'object' && !util.isArray(result)) {
           node.getType().should.be.eql('TAG_Compound');
         } else if (typeof result === 'string') {
-          if (Long.fromString(result).toString() === result) {
+          if (tryBigInt(result).toString() === result) {
             node.getType().should.match(/^TAG_(String|Long)$/);
           } else {
             node.getType().should.be.eql('TAG_String');
