@@ -4,7 +4,6 @@ const fs = require('fs');
 const zlib = require('zlib');
 
 const Tag = require('./lib/base_tag');
-const { Bvffer } = require('./lib/bvffer');
 
 /**
  * The NBT class
@@ -73,7 +72,7 @@ class NBT {
    * @return {Buffer} The buffer
    */
   writeToBuffer() {
-    const buff = new Bvffer(this.calcBufferLength());
+    const buff = new Buffer(this.calcBufferLength());
     for (const key in this.root) {
       if (!this.root.hasOwnProperty(key)) continue;
 
