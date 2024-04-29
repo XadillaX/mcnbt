@@ -1,7 +1,9 @@
 'use strict';
 
-const fs = require('fs');
-const zlib = require('zlib');
+let fs;
+try { fs = require('fs'); } catch (e) { /* Not running on Node.js */ }
+let zlib;
+try { zlib = require('zlib'); } catch (e) { /* Not running on Node.js */ }
 
 const Tag = require('./lib/base_tag');
 
