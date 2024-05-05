@@ -28,7 +28,7 @@ const NBT = require('mcnbt');
 There're several function for you to parse an NBT structure after you instantiating
 an object:
 
-+ `loadFromBuffer(buff, callback)`
++ `loadFromBuffer(buff, callback?)`: callback is optional
 + `loadFromZlibCompressedBuffer(buff, callback)`
 + `loadFromFile(filename, callback)`
 + `loadFromZlibCompressedFile(filename, callback)`
@@ -112,8 +112,7 @@ No extra method.
 
 ### TAGLong
 
-The value's type is long long ([bignum](https://github.com/justmoon/node-bignum)
-in js).
+The value's type is long (bigint in js).
 
 No extra method.
 
@@ -125,7 +124,7 @@ No extra method.
 
 ### TAGDouble
 
-The value's type is double (nbumer in js).
+The value's type is double (number in js).
 
 No extra method.
 

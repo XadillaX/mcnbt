@@ -1,10 +1,11 @@
 'use strict';
 
-const fs = require('fs');
-const zlib = require('zlib');
+let fs;
+try { fs = require('fs'); } catch (e) { /* Not running on Node.js */ }
+let zlib;
+try { zlib = require('zlib'); } catch (e) { /* Not running on Node.js */ }
 
 const Tag = require('./lib/base_tag');
-const { Bvffer } = require('./lib/bvffer');
 
 /**
  * The NBT class
@@ -18,9 +19,10 @@ class NBT {
   /**
    * Load from buffer
    * @param {Buffer} buff The buffer to load from
-   * @param {(err?: Error) => void} callback The callback to call when done
+   * @param {(err?: Error) => void} [callback] The callback to call when done
    */
   loadFromBuffer(buff, callback) {
+    let err;
     try {
       this._buff = buff;
       let offset = 0;
@@ -33,10 +35,14 @@ class NBT {
         offset += len;
       }
     } catch (e) {
-      return callback(e);
+      err = e;
     }
 
-    callback();
+    if (callback) {
+      callback(err);
+    } else {
+      throw err;
+    }
   }
 
   /**
@@ -73,7 +79,7 @@ class NBT {
    * @return {Buffer} The buffer
    */
   writeToBuffer() {
-    const buff = new Bvffer(this.calcBufferLength());
+    const buff = new Buffer(this.calcBufferLength());
     for (const key in this.root) {
       if (!this.root.hasOwnProperty(key)) continue;
 
