@@ -28,7 +28,7 @@ const NBT = require('mcnbt');
 There're several function for you to parse an NBT structure after you instantiating
 an object:
 
-+ `loadFromBuffer(buff, callback)`
++ `loadFromBuffer(buff, callback?)`: callback is optional
 + `loadFromZlibCompressedBuffer(buff, callback)`
 + `loadFromFile(filename, callback)`
 + `loadFromZlibCompressedFile(filename, callback)`

@@ -17,9 +17,10 @@ class NBT {
   /**
    * Load from buffer
    * @param {Buffer} buff The buffer to load from
-   * @param {(err?: Error) => void} callback The callback to call when done
+   * @param {(err?: Error) => void} [callback] The callback to call when done
    */
   loadFromBuffer(buff, callback) {
+    let err;
     try {
       this._buff = buff;
       let offset = 0;
@@ -32,10 +33,14 @@ class NBT {
         offset += len;
       }
     } catch (e) {
-      return callback(e);
+      err = e;
     }
 
-    callback();
+    if (callback) {
+      callback(err);
+    } else {
+      throw err;
+    }
   }
 
   /**

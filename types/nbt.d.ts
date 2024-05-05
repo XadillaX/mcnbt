@@ -9,9 +9,9 @@ declare class NBT {
   /**
    * Load from buffer
    * @param {Buffer} buff The buffer to load from
-   * @param {(err?: Error) => void} callback The callback to call when done
+   * @param {(err?: Error) => void} [callback] The callback to call when done
    */
-  loadFromBuffer(buff: Buffer, callback: (err?: Error) => void): void;
+  loadFromBuffer(buff: Buffer, callback?: (err?: Error) => void): void;
   _buff: Buffer;
   /**
    * Load from compressed buffer
